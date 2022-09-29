@@ -1,9 +1,24 @@
 {% extends 'base.html' %}
 
 {% block content %}
-<h5>Nama: </h5>
-<p>{{nama}}</p>
 
+<nav class="navbar navbar-expand-sm bg-light">
+    <div class = "container-fluid">
+        <a class="navbar-brand" href="#">Navbar</a>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                <span class = "navbar-brand mb-0 h1">{{Nama}}</span>
+                <li class="nav-item">
+                    <a class="nav-link active" aria-current="page" href="#">{{nama}}</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link active" aria-current="page" href="{% url 'wishlist:logout' %}">Logout</a>
+                </li>
+            </ul>
+        </div> 
+    </div>
+</nav>
+<br>
 <table>
     <tr>
     <th>Nama Barang</th>
@@ -19,8 +34,7 @@
         </tr>
     {% endfor %}
 </table>
-<h5>Sesi terakhir login: {{ last_login }}</h5>
-<button><a href="{% url 'wishlist:logout' %}">Logout</a></button>
-
+<br>
+<h5 class = "text-primary">Sesi terakhir login: {{ last_login }}</h5>
 
 {% endblock content %}
