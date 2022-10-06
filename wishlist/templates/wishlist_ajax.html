@@ -1,0 +1,86 @@
+{% extends 'base.html' %}
+
+{% block meta %}
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<script>
+    $(document).ready(function(){
+        $("#get_data").click(function(){
+            $("#table1").empty();
+            $.get("{% url 'wishlist:show_json' %}", function(response){
+                $('#table1').append("<tr>\
+                    <th>Nama Barang</th>\
+                    <th>Harga Barang</th>\
+                    <th>Deskripsi</th>\</tr>")
+                $.each(response, function(key, value){
+                    for (var item in value){
+                        $('#table1').append('<tr>' + 
+                        '<td>'+ item.nama_barang+'</td>'+
+                        '<td>'+item.harga_barang+'</td>'+
+                        '<td>'+value+'</td>'+
+                        '</tr>')
+                    }
+                });
+                $("$table1").append("<tr>\
+                    <td><button type='button' id = 'get_data' name = 'get_data'></button></td>\
+                </tr>")
+            });
+        });
+    });
+</script>
+
+{% endblock meta %}
+
+{% block content %}
+
+<nav class="navbar navbar-expand-sm bg-light">
+    <div class = "container-fluid">
+        <a class="navbar-brand" href="#">Navbar</a>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                <span class = "navbar-brand mb-0 h1">{{Nama}}</span>
+                <li class="nav-item">
+                    <a class="nav-link active" aria-current="page" href="#">{{nama}}</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link active" aria-current="page" href="{% url 'wishlist:logout' %}">Logout</a>
+                </li>
+            </ul>
+        </div> 
+    </div>
+</nav>
+<br>
+
+<form>
+    <table>
+        <tr>
+            <td>Nama Barang</td>
+            <td><input type = "text" name = "nama_barang" id = "nama_barang"></td>
+        </tr>
+        <tr>
+            <td>Harga Barang</td>
+            <td><input type = "text" name = "harga_barang" id = "harga_barang"></td>
+        </tr>
+        <tr>
+            <td>Deskripsi</td>
+            <td><input type = "text" name = "deskripsi_barang" id = "deskripsi_barang"></td>
+        </tr>
+        <tr>
+            <td><input type = "submit" name = "submit" id = "submit"></td>
+        </tr>
+    </table>
+</form>
+
+<br>
+<table id = "table1">
+    <tr>
+        <th>Nama Barang</th>
+        <th>Harga Barang</th>
+        <th>Deskripsi</th>
+    </tr>
+    {% comment %} Tambahkan data di bawah baris ini {% endcomment %}
+</table>
+<br>
+<button type="button" id = "get_data" name = "get_data">Get Data</button>
+<h5 class = "text-primary">Sesi terakhir login: {{ last_login }}</h5>
+
+{% endblock content %}

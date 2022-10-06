@@ -1,3 +1,4 @@
+from multiprocessing import context
 from django.shortcuts import render
 from wishlist.models import BarangWishlist
 from django.http import HttpResponse
@@ -75,3 +76,8 @@ def logout_user(request):
     response.delete_cookie('last_login')
     return response
 
+def show_wishlist_ajax(request):
+    data_barang_wishlist = BarangWishlist.objects.all()
+    context = {"list_item":data_barang_wishlist}
+
+    return render(request, "wishlist_ajax.html", context)
